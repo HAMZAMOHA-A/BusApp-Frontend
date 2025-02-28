@@ -1,0 +1,179 @@
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background: rgb(109, 2, 2);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    height: 55px;
+  }
+  
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .logo a {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .logo a:hover {
+    color: #ffcc00;
+  }
+  
+  /* Navigation Links */
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .nav-links li {
+    position: relative;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .nav-links a:hover {
+    color: rgb(107, 3, 3);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Login and Register Buttons */
+  .btn {
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .login-btn {
+    background-color: black;
+    color: #004080;
+    border: 2px solid rgb(131, 160, 1);
+  }
+  
+  .login-btn:hover {
+    background-color: black;
+    color: #003366;
+    border-color: black;
+  }
+  
+  .register-btn {
+    background-color: black;
+    border: 2px solid rgb(131, 160, 1);
+    color: white;
+  }
+  
+  .register-btn:hover {
+    background-color: rgb(46, 41, 41);
+    color: #004080;
+  }
+  
+  /* Dropdown */
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-toggle {
+    background: none;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .dropdown-toggle:hover {
+    color: #ffcc00;
+  }
+  
+  /* Dropdown Menu */
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: block;
+    z-index: 10;
+  }
+  
+  .dropdown:hover .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .dropdown-menu li {
+    display: block;
+  }
+  
+  .dropdown-menu a {
+    display: block;
+    padding: 10px 18px;
+    color: #004080;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .dropdown-menu a:hover {
+    background-color: #f8f9fa;
+    color: #002244;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+      height: auto;
+      padding: 12px 20px;
+    }
+  
+    .nav-links {
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      text-align: left;
+      margin-top: 8px;
+    }
+  
+    .nav-links a {
+      padding: 8px 10px;
+      display: block;
+    }
+  
+    .login-btn, .register-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  

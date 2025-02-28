@@ -1,37 +1,164 @@
 .auth-container {
-    width: 300px;
-    margin: 100px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .auth-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
     text-align: center;
-}
-
-.auth-container h2 {
+  }
+  
+  .auth-card h2 {
     margin-bottom: 20px;
-}
-
-.auth-container input {
+    color: #004080;
+  }
+  
+  .auth-card input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-}
-
-.auth-container button {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+   
+  }
+  
+  .auth-btn {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: rgb(85, 3, 3);
     color: white;
     border: none;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-}
-
-.auth-container button:hover {
-    background-color: #0056b3;
-}
-
-.auth-message {
     margin-top: 10px;
-    color: red;
+  }
+  
+  .auth-btn:hover {
+    background-color: rgb(100, 4, 4);
+  }
+  
+  .auth-switch {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .auth-switch span {
+    color: rgb(92, 3, 3);
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .auth-switch span:hover {
+    text-decoration: underline;
+  }
+  /* Style the input placeholders */
+.auth-card input::placeholder {
+  color: #888; /* Light gray color */
+  font-style: italic;
+  opacity: 1;
+}
+
+/* Style the select dropdown */
+.auth-card select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Make the select dropdown more visually appealing */
+.auth-card select:focus {
+  border-color: #004080;
+  outline: none;
+}
+
+/* Style the dropdown options */
+.auth-card select option {
+  background: white;
+  color: #333;
+  font-size: 16px;
+}
+
+/* Ensure the register button has a consistent style */
+.auth-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(85, 3, 3);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.auth-btn:hover {
+  background-color: rgb(100, 4, 4);
+}
+
+/* Style the 'Already have an account?' text */
+.auth-switch {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #666;
+}
+
+.auth-switch span {
+  color: rgb(92, 3, 3);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.auth-switch span:hover {
+  text-decoration: underline;
+}
+/* Style the password input container */
+.password-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  width: 100%;
+  padding: 10px 40px 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Fix placeholder styling */
+.password-container input::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+/* Ensure eye icon stays inside */
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #004080;
+  font-size: 18px;
+}
+
+.eye-icon:hover {
+  color: #002d5a;
 }

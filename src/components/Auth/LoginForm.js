@@ -1,56 +1,104 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import authApi from "../../api/authApi";
-import "./Auth.css";  
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
+import "./Auth.css";
 
-function LoginForm() {
-    const [credentials, setCredentials] = useState({ email: "", password: "" });
-    const [message, setMessage] = useState("");
-    const navigate = useNavigate();
+const Login = () => {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(null); // State for errors
+  const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    };
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await authApi.login(credentials);
-            setMessage("Login successful!");
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
-            localStorage.setItem("token", response.token);
-            localStorage.setItem("role", response.role);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null); // Reset errors before making request
 
-            switch (response.role) {
-                case "Admin":
-                    navigate("/admin-dashboard");
-                    break;
-                case "Driver":
-                    navigate("/driver-dashboard");
-                    break;
-                case "Customer":
-                    navigate("/customer-dashboard");
-                    break;
-                default:
-                    setMessage("Unknown role, please contact support.");
-            }
-        } catch (error) {
-            setMessage(error.response?.data?.error || "Login failed.");
+    try {
+      const response = await fetch("https://busbookingtest.onrender.com/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Login successful:", data);
+        
+        // Store token and role in localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.role);
+
+        // Navigate to the appropriate dashboard based on the role
+        switch (data.role) {
+          case "Admin":
+            navigate("/admin-dashboard");
+            break;
+          case "Driver":
+            navigate("/driver-dashboard");
+            break;
+          case "Customer":
+            navigate("/customer-dashboard");
+            break;
+          default:
+            setError("Unknown role, please contact support.");
         }
-    };
+      } else {
+        setError(data.message || "Login failed. Please try again.");
+      }
+    } catch (err) {
+      setError("Network error. Please try again later.");
+    }
+  };
 
-    return (
-        <div className="auth-container">
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-                <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-                <button type="submit">Login</button>
-            </form>
-            {message && <p className="auth-message">{message}</p>}
-            <p>Don't have an account? <a href="/register">Register here</a></p>
-        </div>
-    );
-}
+  return (
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2>Login</h2>
+        {error && <p className="error-message">{error}</p>} {/* Display error message */}
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
 
-export default LoginForm;
+          {/* Password input with eye icon */}
+          <div className="password-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            <span className="eye-icon" onClick={togglePasswordVisibility}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
+          <button type="submit" className="auth-btn">Login</button>
+        </form>
+        <p className="auth-switch">
+          Don't have an account? <span onClick={() => navigate("/register")}>Register</span>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default Login;

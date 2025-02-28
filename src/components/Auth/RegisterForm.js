@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import authApi from "../../api/authApi";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
+import authApi from "../../api/authApi"; // Assuming this is the path to your authApi
 import "./Auth.css";
 
 function RegisterForm() {
@@ -8,14 +9,19 @@ function RegisterForm() {
         name: "",
         email: "",
         password: "",
-        role: "Customer"  // Default role (you can change it as needed)
+        role: "Customer" // Default role (you can change it as needed)
     });
 
     const [message, setMessage] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     };
 
     const handleSubmit = async (e) => {
@@ -25,7 +31,7 @@ function RegisterForm() {
             setMessage(response.message);
 
             // Redirect to login after successful registration
-            setTimeout(() => navigate("/"), 2000);  // Redirect after showing message
+            setTimeout(() => navigate("/login"), 2000); // Redirect after showing message
         } catch (error) {
             setMessage(error.response?.data?.error || "Registration failed.");
         }
@@ -33,41 +39,51 @@ function RegisterForm() {
 
     return (
         <div className="auth-container">
-            <h2>Register</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                />
-                <select name="role" value={formData.role} onChange={handleChange} required>
-                    <option value="Customer">Customer</option>
-                    <option value="Driver">Driver</option>
-                    <option value="Admin">Admin</option>
-                </select>
-                <button type="submit">Register</button>
-            </form>
-            {message && <p className="auth-message">{message}</p>}
-            <p>Already have an account? <a href="/login">Login</a></p>
+            <div className="auth-card">
+                <h2>Register</h2>
+                {message && <p className="auth-message">{message}</p>}
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                    {/* Password input with eye icon */}
+                    <div className="password-container">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                        <span className="eye-icon" onClick={togglePasswordVisibility}>
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                    </div>
+                    <select name="role" value={formData.role} onChange={handleChange} required>
+                        <option value="Customer">Customer</option>
+                        <option value="Driver">Driver</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                    <button type="submit" className="auth-btn">Register</button>
+                </form>
+                <p className="auth-switch">
+                    Already have an account? <span onClick={() => navigate("/login")}>Login</span>
+                </p>
+            </div>
         </div>
     );
 }
